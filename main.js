@@ -11,10 +11,16 @@ const column = document.querySelectorAll(".column")
 
 column.forEach((element) => {
 	element.addEventListener("click", function () {
+		const chip = document.createElement("div")
+		chip.classList.add("chip")
+		chip.classList.add(turn === 0 ? "redchip" : "blackchip") // .redchip is 0, .blackchip is 1
 
-
-
-
-        turn = turn === 1 ? 0 : 1
+		for (let cell of Array.from(element.children)) {
+			if (!cell.querySelector(".chip")) {
+				cell.appendChild(chip)
+				turn = turn === 0 ? 1 : 0
+				break
+			}
+		}
     })
 })

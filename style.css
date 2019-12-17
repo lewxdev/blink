@@ -35,6 +35,11 @@ footer {
     flex-direction: row-reverse;
 }
 
+.column {
+	display: flex;
+	flex-direction: column-reverse;
+}
+
 .column:hover {
     cursor: pointer;
 }
@@ -46,17 +51,17 @@ footer {
     border: 5px solid yellow;
 }
 
-#redchip {
-    width: 90px;
+.chip {
+	width: 90px;
     height: 90px;
     border-radius: 50%;
+}
+
+.redchip {
     background-color: red;
 }
 
-#blackchip {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
+.blackchip {
     background-color: black;
 }
 
