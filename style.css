@@ -4,24 +4,27 @@
 /* a little comment */
 
 body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
-	padding: 0;
-	background: linear-gradient(45deg, #16BFFD 50%, #CB3066 50%) no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #16BFFD 50%, rgb(200, 203, 48) 50%) no-repeat;
 }
 
 footer {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
     background-color: rgba(3, 3, 3, 0.5);
     text-align: center;
     font-family: 'Playfair Display', serif;
     font-weight: bold;
-	height: 200px;
-	width: 100vw;
-	position: absolute;
-	bottom: 0;
+    height: 165px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 .title {
@@ -37,30 +40,30 @@ footer {
 }
 
 .column {
-	display: flex;
-	flex-direction: column-reverse;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .column:hover {
-	cursor: pointer;
-	z-index: 10000;
-	opacity: 0.5;
+    cursor: pointer;
+    z-index: 10000;
+    opacity: 0.8;
 }
 
 .cell {
     width: 100px;
-	height: 100px;
-	outline: 2.5px solid;
-	display: flex;
-	justify-content: center;
-	background: #0000002f;
-	align-items: center;
+    height: 100px;
+    outline: 2.5px solid;
+    display: flex;
+    justify-content: center;
+    background: #0000002f;
+    align-items: center;
 }
 
 .chip {
-	border-radius: 50%;
-	border: solid 15px;
-	padding: 20px;
+    border-radius: 50%;
+    border: solid 15px;
+    padding: 20px;
 }
 
 .p0 {
@@ -73,6 +76,8 @@ footer {
 
 .credits {
     color: whitesmoke;
-    font-size: 35px;
+    font-size: 25px;
+    margin: 0;
+    padding: 10px;
     font-family: 'Roboto Condensed', sans-serif;
 }
