@@ -35,6 +35,10 @@ footer {
     flex-direction: row-reverse;
 }
 
+.column:hover {
+    cursor: pointer;
+}
+
 .cell {
     width: 100px;
     height: 100px;
