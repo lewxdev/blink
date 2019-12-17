@@ -13,6 +13,8 @@ column.forEach((element) => {
 	element.addEventListener("click", function () {
 
 
-		turn = turn === 1 ? 0 : 1
-	})
+
+
+        turn = turn === 1 ? 0 : 1
+    })
 })
