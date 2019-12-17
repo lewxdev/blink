@@ -18,9 +18,7 @@ const createGrid = function () {
 }()
 
 function checkWin(chip) {
-	
-
-	chip.parentElement
+	console.log(Array.from(grid.children).indexOf(chip.parentElement))
 }
 
 // turn: (number) flag that determines which player's move it is
@@ -39,6 +37,7 @@ gridColumns.forEach(column =>
 				const chip = document.createElement("div")
 				chip.classList.add("chip", `p${turn}`)
 				cell.appendChild(chip)
+				checkWin(chip)
 
 				// switch turns and break
 				turn = turn === 0 ? 1 : 0
