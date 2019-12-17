@@ -13,5 +13,6 @@
         "statusBar.background": "#8a0808",
         "statusBarItem.hoverBackground": "#ba0b0b",
         "statusBar.foreground": "#e7e7e7"
-    }
+	},
+	"liveServer.settings.port": 5601
 }
