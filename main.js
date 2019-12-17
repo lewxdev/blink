@@ -1,4 +1,6 @@
+// grid: (HTMLElement) the main grid
 const grid = document.querySelector("#grid")
+// cells: (array) a two-dimensional indexed array of each cell element
 const cells = []
 
 const createGrid = function() {
@@ -18,28 +20,38 @@ const createGrid = function() {
     console.log(cells)
 }()
 
-function checkWin(chip) {
-	let y, x, chipColumn
+// turn: (number) flag that determines which player's move it is
+let turn = 0
+// gridColumns: (NodeList) all elements on the page with a class of "column"
+const gridColumns = document.querySelectorAll(".column")
+
+function findPlaceOf(chip) {
+	let coordinates = { x: 0, y: 0 }
 
 	grid.childNodes.forEach((column, index) => {
 		if (column.contains(chip)) {
-			x = index
-			chipColumn = column
+			coordinates.x = index
+			column.childNodes.forEach((cell, index) => {
+				if (cell.contains(chip))
+					coordinates.y = index
+			})
 		}
 	})
-	
-	chipColumn.childNodes.forEach((cell, index) => {
-		if (cell.contains(chip))
-			y = index
-	})
 
-	console.log("x", x, "y", y)
+	return coordinates
 }
 
-// turn: (number) flag that determines which player's move it is
-let turn = 0
-    // gridColumns: (NodeList) all elements on the page with a class of "column"
-const gridColumns = document.querySelectorAll(".column")
+function checkWin(coordinates) {
+	const chipCell = cells[coordinates.x][coordinates.y]
+	let vertStr = ""
+
+	chipCell.parentElement.querySelectorAll(".chip").forEach(chip => 
+		vertStr += chip.classList.contains("p0") ? "0" : "1"
+	)
+
+	if (vertStr.includes(turn === 0 ? "0000" : "1111"))
+		return true
+}
 
 gridColumns.forEach(column =>
 	// setting the onclick event handler for each column
@@ -52,10 +64,11 @@ gridColumns.forEach(column =>
 				const chip = document.createElement("div")
 				chip.classList.add("chip", `p${turn}`)
 				cell.appendChild(chip)
-				checkWin(chip)
-
+				if (checkWin(findPlaceOf(chip))) {
+					alert(`Player ${turn + 1} Won!`)
+					location.reload()
 				// switch turns and break
-				turn = turn === 0 ? 1 : 0
+				} else turn = turn === 0 ? 1 : 0
 				break
 			}
 		}
