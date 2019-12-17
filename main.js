@@ -11,7 +11,7 @@ const column = document.querySelectorAll(".column")
 
 column.forEach((element) => {
 	element.addEventListener("click", function () {
-		
+
 
 		turn = turn === 1 ? 0 : 1
 	})
