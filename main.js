@@ -1,26 +1,24 @@
-/*
-
-0. Have a flag that keeps track of player turn
-1. Add a click handler for each column
-2. Make a function that places 1 red chip (in that column)
-
-*/
-
+// turn: (number) flag that determines which player's move it is
 let turn = 0
-const column = document.querySelectorAll(".column")
+// gridColumns: (NodeList) all elements on the page with a class of "column"
+const gridColumns = document.querySelectorAll(".column")
 
-column.forEach((element) => {
-	element.addEventListener("click", function () {
-		const chip = document.createElement("div")
-		chip.classList.add("chip")
-		chip.classList.add(turn === 0 ? "redchip" : "blackchip") // .redchip is 0, .blackchip is 1
-
-		for (let cell of Array.from(element.children)) {
+gridColumns.forEach(column =>
+	// setting the onclick event handler for each column
+	column.onclick = () => {
+		// for each child element of this column, let cell = the current child
+		for (let cell of column.children) {
+			// if this cell doesn't have any element with the class "chip"
 			if (!cell.querySelector(".chip")) {
+				// create a chip with the current player's color and add it to this cell
+				const chip = document.createElement("div")
+				chip.classList.add("chip", `p${turn}`)
 				cell.appendChild(chip)
+
+				// switch turns and break
 				turn = turn === 0 ? 1 : 0
 				break
 			}
 		}
-    })
-})
+	}
+)
