@@ -1,20 +1,21 @@
 const grid = document.querySelector("#grid")
 const cells = []
 
-const createGrid = function () {
-	for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
-		const column = document.createElement("div")
-		column.className = "column"
-		grid.appendChild(column)
-		cells.push([])
-	
-		for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
-			const cell = document.createElement("div")
-			cell.className = "cell"
-			column.appendChild(cell)
-			cells[columnIndex].push(cell)
-		}
-	}
+const createGrid = function() {
+    for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
+        const column = document.createElement("div")
+        column.className = "column"
+        grid.appendChild(column)
+        cells.push([])
+
+        for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
+            const cell = document.createElement("div")
+            cell.className = "cell"
+            column.appendChild(cell)
+            cells[columnIndex].push(cell)
+        }
+    }
+    console.log(cells)
 }()
 
 function checkWin(chip) {
@@ -23,7 +24,7 @@ function checkWin(chip) {
 
 // turn: (number) flag that determines which player's move it is
 let turn = 0
-// gridColumns: (NodeList) all elements on the page with a class of "column"
+    // gridColumns: (NodeList) all elements on the page with a class of "column"
 const gridColumns = document.querySelectorAll(".column")
 
 gridColumns.forEach(column =>
