@@ -19,7 +19,21 @@ const createGrid = function() {
 }()
 
 function checkWin(chip) {
-	console.log(Array.from(grid.children).indexOf(chip.parentElement))
+	let y, x, chipColumn
+
+	grid.childNodes.forEach((column, index) => {
+		if (column.contains(chip)) {
+			x = index
+			chipColumn = column
+		}
+	})
+	
+	chipColumn.childNodes.forEach((cell, index) => {
+		if (cell.contains(chip))
+			y = index
+	})
+
+	console.log("x", x, "y", y)
 }
 
 // turn: (number) flag that determines which player's move it is
