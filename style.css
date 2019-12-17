@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Lilita+One&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
-.connectfour {
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(45deg, #16BFFD 50%, #CB3066 50%) no-repeat;
+}
+
+footer {
+    background-color: rgba(3, 3, 3, 0.5);
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+	height: 200px;
+	width: 100vw;
+	position: absolute;
+	bottom: 0;
+}
+
+.title {
     text-align: center;
     font-size: 60px;
     color: whitesmoke;
@@ -8,31 +30,8 @@
     font-weight: normal;
 }
 
-#bigboy {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
-footer {
-    margin-top: 25px;
-    padding: 5px;
-    background-color: rgba(3, 3, 3, 0.5);
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-weight: bold;
-    height: 200px;
-}
-
-:root {
-    background-image: linear-gradient( blue, rgb(100, 42, 100));
-    background-repeat: no-repeat;
-}
-
 #grid {
-    display: inline-flex;
-    flex-direction: row-reverse;
+    display: flex;
 }
 
 .column {
@@ -41,28 +40,33 @@ footer {
 }
 
 .column:hover {
-    cursor: pointer;
+	cursor: pointer;
+	z-index: 10000;
+	opacity: 0.5;
 }
 
 .cell {
     width: 100px;
-    height: 100px;
-    background-color: whitesmoke;
-    border: 5px solid yellow;
+	height: 100px;
+	outline: 2.5px solid;
+	display: flex;
+	justify-content: center;
+	background: #0000002f;
+	align-items: center;
 }
 
 .chip {
-	width: 90px;
-    height: 90px;
-    border-radius: 50%;
+	border-radius: 50%;
+	border: solid 15px;
+	padding: 20px;
 }
 
 .p0 {
-    background-color: red;
+    border-color: #CB3066;
 }
 
 .p1 {
-    background-color: black;
+    border-color: #556368;
 }
 
 .credits {
