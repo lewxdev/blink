@@ -1,47 +1,68 @@
 // grid: (HTMLElement) the main grid
-const grid = document.querySelector("#grid")
-// cells: (array) a two-dimensional indexed array of each cell element
-const cells = []
+const grid = document.querySelector("main#grid")
+// turn: (number) flag determines player's turn
+let turn = 0
 
-const createGrid = function() {
+// initialGrid: => (array) creates the grid in the DOM
+// return a 2D array of each cell element
+const initialGrid = function () {
+	// gridArr: (array) the return array
+	const gridArr = []
+
+	// outer for loop: iterate over each column --> `columnIndex`
     for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
-        const column = document.createElement("div")
-        column.className = "column"
-        grid.appendChild(column)
-        cells.push([])
-
-        for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
+		// column: (HTMLDivElement) column `columnIndex` of `grid`
+		const column = document.createElement("div")
+		column.className = "column" // sets the class to "column"
+		column.setAttribute("tabindex", columnIndex + 1) // add a tabindex
+        grid.appendChild(column) // add `column` to the DOM
+		
+		gridArr.push([]) // add a new array (column) to `gridArr`
+		
+		// inner for loop: iterates over each cell --> `cellIndex`
+        for (let cellIndex = 0; cellIndex < 6; cellIndex++) {
+			// cell: (HTMLDivElement) cell `cellIndex` of `column` of `grid`
             const cell = document.createElement("div")
-            cell.className = "cell center-content"
-            column.appendChild(cell)
-            cells[columnIndex].push(cell)
-        }
-    }
+            cell.className = "cell center" // set class to "cell center"
+            column.appendChild(cell) // add `cell` to `column` in the DOM
+			
+			gridArr[columnIndex].push(cell) // add `cell` to column in `gridArr`
+		}
+
+		/* at this point, all cells for `column`
+		   have been created, added to the DOM, and the return array */
+
+		// the onclick event handler for `column`
+		column.onclick = () => {
+			// for... of...: iterates over each `cell` in `column`
+			for (let [index, cell] of Array.from(column.children).entries()) {
+				// IF `cell` doesnt have chip
+				if (!cell.querySelector(".chip")) {
+					// chip: (HTMLDivElement) a new chip
+					const chip = document.createElement("div")
+					chip.className = `chip p${turn}` // set class to "chip p0/1"
+					cell.appendChild(chip) // add to `cell` in the DOM
+					
+					const chipCoords  = { x: index, y: columnIndex }
+					
+					if (checkWin(chipCoords)) {
+						alert(`Player ${turn + 1} Won!`)
+						location.reload()
+					} else turn = turn === 0 ? 1 : 0
+					break
+				}
+			}
+		}
+		column.onkeyup = (event) => {
+			if (event.key === "Enter") column.onclick()
+		}
+	}
+	
+	return gridArr
 }()
 
-// turn: (number) flag that determines which player's move it is
-let turn = 0
-// gridColumns: (NodeList) all elements on the page with a class of "column"
-const gridColumns = document.querySelectorAll(".column")
-
-function findPlaceOf(chip) {
-	let coordinates = { x: 0, y: 0 }
-
-	grid.childNodes.forEach((column, index) => {
-		if (column.contains(chip)) {
-			coordinates.x = index
-			column.childNodes.forEach((cell, index) => {
-				if (cell.contains(chip))
-					coordinates.y = index
-			})
-		}
-	})
-
-	return coordinates
-}
-
 function checkWin(coordinates) {
-	const chipCell = cells[coordinates.x][coordinates.y]
+	const chipCell = initialGrid[coordinates.x][coordinates.y]
 	let vertStr = ""
 
 	chipCell.parentElement.querySelectorAll(".chip").forEach(chip => 
@@ -51,25 +72,3 @@ function checkWin(coordinates) {
 	if (vertStr.includes(turn === 0 ? "0000" : "1111"))
 		return true
 }
-
-gridColumns.forEach(column =>
-	// setting the onclick event handler for each column
-	column.onclick = () => {
-		// for each child element of this column, let cell = the current child
-		for (let cell of column.children) {
-			// if this cell doesn't have any element with the class "chip"
-			if (!cell.querySelector(".chip")) {
-				// create a chip with the current player's color and add it to this cell
-				const chip = document.createElement("div")
-				chip.classList.add("chip", `p${turn}`)
-				cell.appendChild(chip)
-				if (checkWin(findPlaceOf(chip))) {
-					alert(`Player ${turn + 1} Won!`)
-					location.reload()
-				// switch turns and break
-				} else turn = turn === 0 ? 1 : 0
-				break
-			}
-		}
-	}
-)
