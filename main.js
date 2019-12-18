@@ -12,12 +12,11 @@ const createGrid = function() {
 
         for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
             const cell = document.createElement("div")
-            cell.className = "cell"
+            cell.className = "cell center-content"
             column.appendChild(cell)
             cells[columnIndex].push(cell)
         }
     }
-    console.log(cells)
 }()
 
 // turn: (number) flag that determines which player's move it is
