@@ -1,14 +1,10 @@
 const turnStatus = document.querySelector("#turnstatus")
-
 const grid = document.querySelector("main#grid")
-
 let turn = 0
-
 
 function initalGrid() {
     grid.innerHTML = null
     const gridArr = []
-
 
     for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
 
@@ -38,7 +34,8 @@ function initalGrid() {
                     if (checkWin(chipCoords)) {
                         alert(`Player ${turn + 1} Won!`)
                         game = initalGrid()
-                    } else turn = turn === 0 ? 1 : 0
+					} else turn = turn === 0 ? 1 : 0
+					
                     turnStatus.className = `turncolor${turn}`
                     break
                 }
@@ -48,13 +45,14 @@ function initalGrid() {
             if (event.key === "Enter") column.onclick()
         }
     }
-
     turnStatus.className = `turncolor${turn}`
-
     return gridArr
 }
 let game = initalGrid();
 
+document.querySelector(".close").onclick = function () {
+	document.querySelectorAll(".info, .close").forEach(element => element.classList.toggle("hidden"))
+}
 
 function checkWin(coordinates) {
     const chipCell = game[coordinates.x][coordinates.y]
