@@ -1,11 +1,17 @@
 const turnStatus = document.querySelector("#turnstatus")
+
 const grid = document.querySelector("main#grid")
+
 let turn = 0
 
-const initialGrid = function() {
-	const gridArr = []
-	
+
+function initalGrid() {
+    grid.innerHTML = null
+    const gridArr = []
+
+
     for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
+
         const column = document.createElement("div")
         column.className = "column"
         column.setAttribute("tabindex", columnIndex + 1)
@@ -28,10 +34,10 @@ const initialGrid = function() {
                     chip.className = `chip p${turn}`
                     cell.appendChild(chip)
                     const chipCoords = { y: index, x: columnIndex }
-					
-					if (checkWin(chipCoords)) {
+
+                    if (checkWin(chipCoords)) {
                         alert(`Player ${turn + 1} Won!`)
-                        location.reload()
+                        game = initalGrid()
                     } else turn = turn === 0 ? 1 : 0
                     turnStatus.className = `turncolor${turn}`
                     break
@@ -42,18 +48,21 @@ const initialGrid = function() {
             if (event.key === "Enter") column.onclick()
         }
     }
+
     turnStatus.className = `turncolor${turn}`
 
     return gridArr
-}()
+}
+let game = initalGrid();
 
 
 function checkWin(coordinates) {
-    const chipCell = initialGrid[coordinates.x][coordinates.y]
+    const chipCell = game[coordinates.x][coordinates.y]
     let vertStr = ""
     let horzStr = ""
 
-    grid.querySelectorAll(".column")
+    // grid.querySelectorAll(".column").forEach(column =>
+    // 	horzStr += column.  
 
     chipCell.parentElement.querySelectorAll(".chip").forEach(chip =>
         vertStr += chip.classList.contains("p0") ? "0" : "1"

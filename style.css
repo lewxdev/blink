@@ -109,6 +109,9 @@ p:last-child {
 }
 
 .cell {
+    border: var(--black-blend-2) var(--border-size) solid;
+    border-top-color: var(--black-blend-0);
+    border-bottom-color: var(--black-blend-0);
     width: var(--cell-size);
     height: var(--cell-size);
 }
