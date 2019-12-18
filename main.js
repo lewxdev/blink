@@ -59,14 +59,13 @@ let game = initalGrid();
 function checkWin(coordinates) {
     const chipCell = game[coordinates.x][coordinates.y]
     let vertStr = ""
-    let horzStr = ""
 
-    // grid.querySelectorAll(".column").forEach(column =>
-    // 	horzStr += column.  
+    for (let yIndex = coordinates.y; yIndex >= 0; yIndex--) {
+		const currentCell = game[coordinates.x][yIndex].querySelector(".chip")
+		vertStr += currentCell.classList.contains("p0") ? 0 : 1
+	}
 
-    chipCell.parentElement.querySelectorAll(".chip").forEach(chip =>
-        vertStr += chip.classList.contains("p0") ? "0" : "1"
-    )
+	
 
     if (vertStr.includes(turn === 0 ? "0000" : "1111"))
         return true
