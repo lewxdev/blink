@@ -1,17 +1,11 @@
 const turnStatus = document.querySelector("#turnstatus")
-
 const grid = document.querySelector("main#grid")
-
 let turn = 0
 
-
 const initialGrid = function() {
-
-    const gridArr = []
-
-
+	const gridArr = []
+	
     for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
-
         const column = document.createElement("div")
         column.className = "column"
         column.setAttribute("tabindex", columnIndex + 1)
@@ -25,10 +19,7 @@ const initialGrid = function() {
             column.appendChild(cell)
 
             gridArr[columnIndex].push(cell)
-
         }
-
-
 
         column.onclick = () => {
             for (let [index, cell] of Array.from(column.children).entries()) {
@@ -37,7 +28,8 @@ const initialGrid = function() {
                     chip.className = `chip p${turn}`
                     cell.appendChild(chip)
                     const chipCoords = { y: index, x: columnIndex }
-                    if (checkWin(chipCoords)) {
+					
+					if (checkWin(chipCoords)) {
                         alert(`Player ${turn + 1} Won!`)
                         location.reload()
                     } else turn = turn === 0 ? 1 : 0
@@ -50,7 +42,6 @@ const initialGrid = function() {
             if (event.key === "Enter") column.onclick()
         }
     }
-
     turnStatus.className = `turncolor${turn}`
 
     return gridArr
