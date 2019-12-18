@@ -11,6 +11,11 @@ Objectives
 
 Be the first to have four of your chips in a vertical, horizontal, or diagonal.
 
+x       x x x x          x
+x                          x
+x                            x
+x                              x
+
 
 Game Play
 
