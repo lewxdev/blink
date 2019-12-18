@@ -65,7 +65,7 @@ p:last-child {
     padding-top: 5px;
 }
 
-.center-content {
+.center {
     display: flex;
     flex-direction: column;
     justify-content: center;
