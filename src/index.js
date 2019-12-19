@@ -76,15 +76,16 @@ function checkWin(coordinates) {
 	const checkHorz = function () {
 		let horzStr = ""
 
-		let yIndex = coordinates.y
-		while (yIndex >= 0) {
-			let currentChip = gameGrid[coordinates.x][yIndex].querySelector(".chip")
+		let xIndex = 0
+		while (xIndex < gameGrid.length) {
+			let currentChip = gameGrid[xIndex][coordinates.y].querySelector(".chip")
 
-			if (currentChip.classList.contains("p0")) currentChip = "0"
+			if (!currentChip) currentChip = "N"
+			else if (currentChip.classList.contains("p0")) currentChip = "0"
 			else currentChip = "1"
 
 			horzStr += currentChip
-			yIndex--
+			xIndex++
 		}
 
 		if (horzStr.includes("0000") || horzStr.includes("1111"))
