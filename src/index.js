@@ -1,6 +1,14 @@
 const turnIndicator = document.querySelector("#turn-indicator")
 const grid = document.querySelector("main#grid")
-let turn = 0
+let turn = 0,
+	turns = 0
+
+function blinkElement(element = document.body, instances = 3, duration = 1000) {
+	const totalDuration = instances * duration
+	const blink = setInterval(() => element.classList.toggle("hidden"), duration / 2)
+	setTimeout(() => clearInterval(blink), totalDuration)
+	return totalDuration
+}
 
 function initalGrid() {
     grid.innerHTML = null
@@ -32,9 +40,25 @@ function initalGrid() {
                     const chipCoords = { y: index, x: columnIndex }
 
                     if (checkWin(chipCoords)) {
-                        alert(`Player ${turn + 1} Won!`)
-                        gameGrid = initalGrid()
-                    } else turn = turn === 0 ? 1 : 0
+						alert(`Player ${turn + 1} Won!`)
+						document.querySelectorAll(".column").forEach(column => column.onclick = null)
+						
+						setTimeout(() => {
+							gameGrid = initalGrid()
+							turns = 0
+						}, blinkElement(document.querySelector(".content-wrapper"), 4, 750))
+                    } else {
+						turn = turn === 0 ? 1 : 0
+						turns++
+					}
+
+					if (turns === gameGrid.length * gameGrid[0].length) {
+						alert("It's a draw!")
+						
+						setTimeout(() => {
+							gameGrid = initalGrid()
+						}, blinkElement(document.querySelector(".content-wrapper"), 4, 750))
+					}
 
                     turnIndicator.className = `chip p${turn}`
                     break
