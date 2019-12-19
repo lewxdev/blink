@@ -1,4 +1,4 @@
-const turnStatus = document.querySelector("#turnstatus")
+const turnIndicator = document.querySelector("#turn-indicator")
 const grid = document.querySelector("main#grid")
 let turn = 0
 
@@ -36,7 +36,7 @@ function initalGrid() {
                         game = initalGrid()
 					} else turn = turn === 0 ? 1 : 0
 					
-                    turnStatus.className = `turncolor${turn}`
+                    turnIndicator.className = `chip p${turn}`
                     break
                 }
             }
@@ -45,13 +45,13 @@ function initalGrid() {
             if (event.key === "Enter") column.onclick()
         }
     }
-    turnStatus.className = `turncolor${turn}`
+    turnIndicator.className = `chip p${turn}`
     return gridArr
 }
 let game = initalGrid();
 
 document.querySelector(".close").onclick = function () {
-	document.querySelectorAll(".info, .close").forEach(element => element.classList.toggle("hidden"))
+	document.querySelectorAll(".info, .close, .content-container").forEach(element => element.classList.toggle("hidden"))
 }
 
 function checkWin(coordinates) {
