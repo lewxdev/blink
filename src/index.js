@@ -38,15 +38,15 @@ function initalGrid() {
                     chip.className = `chip p${turn}`
                     cell.appendChild(chip)
                     const chipCoords = { y: index, x: columnIndex }
-
-                    if (checkWin(chipCoords)) {
+					
+					if (checkWin(chipCoords)) {
 						alert(`Player ${turn + 1} Won!`)
 						document.querySelectorAll(".column").forEach(column => column.onclick = null)
 						
 						setTimeout(() => {
 							gameGrid = initalGrid()
 							turns = 0
-						}, blinkElement(document.querySelector(".content-wrapper"), 4, 750))
+						}, 3000)
                     } else {
 						turn = turn === 0 ? 1 : 0
 						turns++
@@ -86,30 +86,41 @@ document.querySelector(".close").onclick = function() {
 }
 
 function checkWin(coordinates) {
+
     const checkVert = function() {
-        let vertStr = ""
+		let vertStr = "",
+			vertArr = []
 
         let yIndex = coordinates.y
         while (yIndex >= 0) {
-            let currentChip = gameGrid[coordinates.x][yIndex].querySelector(".chip")
+			let currentChip = gameGrid[coordinates.x][yIndex].querySelector(".chip")
+			vertArr.push(currentChip)
 
             if (currentChip.classList.contains("p0")) currentChip = "0"
             else currentChip = "1"
 
             vertStr += currentChip
             yIndex--
-        }
+		}
 
-        if (vertStr.includes("0000") || vertStr.includes("1111"))
-            return true
+		["0000", "1111"].forEach(condition => {
+			if (vertStr.includes(condition)) {
+				const firstTileIndex = vertStr.indexOf(condition)
+				
+				for (let winTileIndex = firstTileIndex; winTileIndex < firstTileIndex + 4; winTileIndex++)
+					vertArr[winTileIndex].classList.add("glow")
+			}
+		})
     }()
 
     const checkHorz = function() {
-        let horzStr = ""
+		let horzStr = "",
+			horzArr = []
 
         let xIndex = 0
         while (xIndex < gameGrid.length) {
-            let currentChip = gameGrid[xIndex][coordinates.y].querySelector(".chip")
+			let currentChip = gameGrid[xIndex][coordinates.y].querySelector(".chip")
+			horzArr.push(currentChip)
 
             if (!currentChip) currentChip = "N"
             else if (currentChip.classList.contains("p0")) currentChip = "0"
@@ -117,20 +128,28 @@ function checkWin(coordinates) {
 
             horzStr += currentChip
             xIndex++
-        }
+		}
 
-        if (horzStr.includes("0000") || horzStr.includes("1111"))
-            return true
+        ["0000", "1111"].forEach(condition => {
+			if (horzStr.includes(condition)) {
+				const firstTileIndex = horzStr.indexOf(condition)
+				
+				for (let winTileIndex = firstTileIndex; winTileIndex < firstTileIndex + 4; winTileIndex++)
+					horzArr[winTileIndex].classList.add("glow")
+			}
+		})
     }()
 
     const checkNegDiag = function() {
-        let negDiagStr = ""
+		let negDiagStr = "",
+			negDiagArr = []
 
         down: {
             let xIndex = coordinates.x,
                 yIndex = coordinates.y
             while (yIndex >= 0 && xIndex < gameGrid.length) {
-                let currentChip = gameGrid[xIndex][yIndex].querySelector(".chip")
+				let currentChip = gameGrid[xIndex][yIndex].querySelector(".chip")
+				negDiagArr.push(currentChip)
 
                 if (!currentChip) currentChip = "N"
                 else if (currentChip.classList.contains("p0")) currentChip = "0"
@@ -146,7 +165,8 @@ function checkWin(coordinates) {
             let xIndex = coordinates.x - 1,
                 yIndex = coordinates.y + 1
             while (yIndex < gameGrid[0].length && xIndex >= 0) {
-                let currentChip = gameGrid[xIndex][yIndex].querySelector(".chip")
+				let currentChip = gameGrid[xIndex][yIndex].querySelector(".chip")
+				negDiagArr.unshift(currentChip)
 
                 if (!currentChip) currentChip = "N"
                 else if (currentChip.classList.contains("p0")) currentChip = "0"
@@ -157,20 +177,28 @@ function checkWin(coordinates) {
                 yIndex++
                 xIndex--
             }
-        }
+		}
 
-        if (negDiagStr.includes("0000") || negDiagStr.includes("1111"))
-            return true
+        ["0000", "1111"].forEach(condition => {
+			if (negDiagStr.includes(condition)) {
+				const firstTileIndex = negDiagStr.indexOf(condition)
+				
+				for (let winTileIndex = firstTileIndex; winTileIndex < firstTileIndex + 4; winTileIndex++)
+					negDiagArr[winTileIndex].classList.add("glow")
+			}
+		})
     }()
 
     const checkPosDiag = function() {
-        let posDiagStr = ""
+		let posDiagStr = "",
+			posDiagArr = []
 
         down: {
             let xIndex = coordinates.x,
                 yIndex = coordinates.y
             while (yIndex >= 0 && xIndex >= 0) {
-                let currentChip = gameGrid[xIndex][yIndex].querySelector(".chip")
+				let currentChip = gameGrid[xIndex][yIndex].querySelector(".chip")
+				posDiagArr.push(currentChip)
 
                 if (!currentChip) currentChip = "N"
                 else if (currentChip.classList.contains("p0")) currentChip = "0"
@@ -186,7 +214,8 @@ function checkWin(coordinates) {
             let xIndex = coordinates.x + 1,
                 yIndex = coordinates.y + 1
             while (yIndex < gameGrid[0].length && xIndex < gameGrid.length) {
-                let currentChip = gameGrid[xIndex][yIndex].querySelector(".chip")
+				let currentChip = gameGrid[xIndex][yIndex].querySelector(".chip")
+				posDiagArr.unshift(currentChip)
 
                 if (!currentChip) currentChip = "N"
                 else if (currentChip.classList.contains("p0")) currentChip = "0"
@@ -197,12 +226,18 @@ function checkWin(coordinates) {
                 yIndex++
                 xIndex++
             }
-        }
+		}
 
-        if (posDiagStr.includes("0000") || posDiagStr.includes("1111"))
-            return true
+        ["0000", "1111"].forEach(condition => {
+			if (posDiagStr.includes(condition)) {
+				const firstTileIndex = posDiagStr.indexOf(condition)
+				
+				for (let winTileIndex = firstTileIndex; winTileIndex < firstTileIndex + 4; winTileIndex++)
+					posDiagArr[winTileIndex].classList.add("glow")
+			}
+		})
     }()
 
-    if (checkVert || checkHorz || checkNegDiag || checkPosDiag)
+    if (document.querySelector(".glow"))
         return true
 }
