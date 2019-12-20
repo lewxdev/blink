@@ -1,8 +1,5 @@
 /* Document Variables */
 :root {
-    /* Sizing */
-    --border-size: 2px;
-    --modal-margin: 10px;
     /* Colors */
     --main-color-1: #FF6B6B;
     --main-color-2: #556270;
@@ -19,24 +16,25 @@
 
 @media screen and (orientation: landscape) {
 	:root {
-		--cell-size: 10vh;
+		--cell-size: 12vh;
 		--grid-spacing: 0.5vh;
 		--border-size: 0.25vh;
 		--chip-border-size: 1.25vh;
+		--modal-margin: 5vh;
 	}
 }
-
 @media screen and (orientation: portrait) {
 	:root {
-		--cell-size: 10vw;
+		--cell-size: 12vw;
 		--grid-spacing: 0.5vw;
 		--border-size: 0.25vw;
 		--chip-border-size: 1.25vw;
+		--modal-margin: 5vw;
 	}
 
-	@media screen and (max-width: 350px) {
+	@media screen and (max-width: 320px) {
 		.content-wrapper {
-			display: none;
+			visibility: hidden;
 		}
 		.compatibility {
 			visibility: visible;
@@ -71,17 +69,21 @@ body {
     visibility: hidden;
     z-index: 10000;
     position: absolute;
-    backdrop-filter: blur(15px);
+	background: var(--black-blend-2);
+	backdrop-filter: blur(5px);
 }
 .modal {
     margin: 0 var(--modal-margin);
     padding: 25px;
-    background: var(--black-blend-2);
+    background: var(--black-blend-3);
     color: #fff;
     border-radius: 25px;
 }
 
 /* Info Modal */
+.modal-container:nth-child(2) {
+	visibility: visible;
+}
 .info.modal {
 	visibility: visible;
 	font-size: 0.75em;

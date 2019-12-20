@@ -82,7 +82,7 @@ function initalGrid() {
 let gameGrid = initalGrid();
 
 document.querySelector(".close").onclick = function() {
-    document.querySelectorAll(".info").forEach(element => element.classList.toggle("hidden"))
+    document.querySelectorAll(".info, .modal-container:nth-child(2)").forEach(element => element.classList.toggle("hidden"))
 }
 
 function checkWin(coordinates) {
