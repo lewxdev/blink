@@ -1,10 +1,7 @@
 /* Document Variables */
 :root {
     /* Sizing */
-    --cell-size: 90px;
-    --chip-border-size: 10px;
     --border-size: 2px;
-    --grid-spacing: 5px;
     --modal-margin: 10px;
     /* Colors */
     --main-color-1: #FF6B6B;
@@ -20,25 +17,31 @@
     --white-blend-0: #ffffff0f;
 }
 
-/* Media Queries */
-/* ~~ change sizing when the screen is smaller than the grid */
-@media screen and (max-width: 749px), screen and (max-height: 674px) {
-     :root {
-        --cell-size: 75px;
-        --chip-border-size: 8px;
-    }
+@media screen and (orientation: landscape) {
+	:root {
+		--cell-size: 10vh;
+		--grid-spacing: 0.5vh;
+		--border-size: 0.25vh;
+		--chip-border-size: 1.25vh;
+	}
 }
-@media screen and (max-width: 644px), screen and (max-height: 582px) {
-     :root {
-        --cell-size: 60px;
-        --chip-border-size: 5px;
-    }
-}
-@media screen and (max-width: 539px), screen and (max-height: 489px) {
-     :root {
-        --cell-size: 45px;
-        --chip-border-size: 3px;
-    }
+
+@media screen and (orientation: portrait) {
+	:root {
+		--cell-size: 10vw;
+		--grid-spacing: 0.5vw;
+		--border-size: 0.25vw;
+		--chip-border-size: 1.25vw;
+	}
+
+	@media screen and (max-width: 350px) {
+		.content-wrapper {
+			display: none;
+		}
+		.compatibility {
+			visibility: visible;
+		}
+	}
 }
 
 /* Built-in Elements */
@@ -80,7 +83,8 @@ body {
 
 /* Info Modal */
 .info.modal {
-    visibility: visible;
+	visibility: visible;
+	font-size: 0.75em;
 }
 .close {
     position: absolute;
@@ -90,8 +94,10 @@ body {
 }
 
 #title {
-	font-size: 48px;
+	margin-bottom: 12.5px;
+	font-size: 1.5em;
 	font-weight: 100;
+	letter-spacing: 0.25em;
 }
 
 /* Grid Elements */
@@ -158,15 +164,4 @@ main#grid, .column {
 }
 .hidden {
     display: none;
-}
-
-
-/* ~~ display compatability modal when screen is too small */
-@media screen and (max-width: 434px), screen and (max-height: 397px) {
-    .content-wrapper {
-        display: none;
-    }
-    .compatibility {
-        visibility: visible;
-    }
 }

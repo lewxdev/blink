@@ -67,9 +67,16 @@ function initalGrid() {
         }
         column.onkeyup = (event) => {
             if (event.key === "Enter") column.onclick()
-        }
+		}
     }
-    turnIndicator.className = `chip p${turn}`
+	turnIndicator.className = `chip p${turn}`
+	
+	document.body.onkeyup = (event) => {
+		document.querySelectorAll(".column").forEach((column, index) => {
+			if (event.key === `${index + 1}`) column.onclick()
+		})
+	}
+
     return gridArr
 }
 let gameGrid = initalGrid();
